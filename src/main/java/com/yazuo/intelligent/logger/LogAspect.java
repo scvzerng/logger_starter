@@ -34,7 +34,9 @@ public class LogAspect {
         String methodName = point.getSignature().toString();
 
         try {
-           return point.proceed();
+            Object result = point.proceed();
+            ExceptionUtils.logInfo(log,System.currentTimeMillis()-start,methodName,apiOperation.value(),params,200,JSON.toJSONString(result));
+           return result;
         } catch (Throwable throwable) {
             throwable.getMessage();
             int code = 500;

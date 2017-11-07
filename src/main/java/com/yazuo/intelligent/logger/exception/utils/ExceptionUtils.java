@@ -21,5 +21,9 @@ public final class ExceptionUtils {
     public static void logError(Logger logger,long spend,String methodName,String apiName,String args,int code,Throwable exception){
         logger.error("耗时-{}毫秒 代码:{} 异常信息:{} 方法:{}[{}] 参数:{}",spend,code,exception.getMessage(),apiName,methodName,args);
     }
+
+    public static void logInfo(Logger logger,long spend,String methodName,String apiName,String args,int code,String result){
+        logger.info("耗时-{}毫秒 代码:{} 方法:{}[{}] 参数:{} 返回值:{}",spend,code,apiName,methodName,args,result);
+    }
     
 }
