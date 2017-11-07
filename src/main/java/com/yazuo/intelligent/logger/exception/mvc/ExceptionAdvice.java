@@ -6,12 +6,12 @@ import com.yazuo.intelligent.logger.exception.response.ErrorResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.annotation.Resource;
 
-@RestControllerAdvice
-@Slf4j
+@RestControllerAdvice(annotations = RestController.class)
 public class ExceptionAdvice  {
     @Resource
     private Tracer tracer;

@@ -1,6 +1,5 @@
 package com.yazuo.intelligent.logger.exception.builder;
 
-import com.alibaba.fastjson.JSONObject;
 import com.yazuo.intelligent.logger.exception.AbstractException;
 import com.yazuo.intelligent.logger.exception.response.ErrorResult;
 import com.yazuo.intelligent.logger.exception.response.SuccessResult;

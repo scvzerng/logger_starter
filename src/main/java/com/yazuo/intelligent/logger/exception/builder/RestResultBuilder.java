@@ -9,7 +9,7 @@ import org.springframework.cloud.sleuth.Tracer;
 
 import java.util.function.Consumer;
 
-public class RestErrorResultBuilder implements ResultBuilder {
+public class RestResultBuilder implements ResultBuilder {
 
     @Override
     public ErrorResult buildError(AbstractException exception, Tracer tracer) {
@@ -39,7 +39,7 @@ public class RestErrorResultBuilder implements ResultBuilder {
     private ErrorResult createFromException( Exception exception, Consumer<ErrorResult> afterProcess){
         ErrorResult result = new ErrorResult();
         result.setMessage(exception.getMessage());
-        result.setStackInfo(ExceptionUtils.exceptionToString(exception.getCause()));
+        result.setStackInfo(ExceptionUtils.exceptionToString(exception));
         if(afterProcess!=null){
             afterProcess.accept(result);
         }
