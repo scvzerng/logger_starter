@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <include resource="com/yazuo/intelligent/logger/yazuo-logging-base.xml"/>
+
+    <!-- 关联appender到项目 -->
+    <logger name="com.yazuo" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <!-- Spring框架的日志输出 -->
+    <logger name="org.springframework" level="ERROR"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

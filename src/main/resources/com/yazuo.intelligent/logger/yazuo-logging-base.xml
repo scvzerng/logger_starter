@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <springProperty scope="context" name="APPLICATION_NAME" source="spring.application.name" defaultValue="app" />
+
+    <property name="LOG_PATH" value="${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}"/>
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH}/${APPLICATION_NAME}.log}"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <include resource="com/yazuo/intelligent/logger/file-appender.xml"/>
+</included>
