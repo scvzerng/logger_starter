@@ -15,7 +15,6 @@ import javax.servlet.Servlet;
 @Configuration
 @ConditionalOnWebApplication
 @ConditionalOnClass(value = {Servlet.class, RestControllerAdvice.class})
-@PropertySource("logger.yml")
 public class ExceptionAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
