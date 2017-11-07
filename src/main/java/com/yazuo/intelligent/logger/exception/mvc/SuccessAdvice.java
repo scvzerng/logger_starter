@@ -1,6 +1,7 @@
 package com.yazuo.intelligent.logger.exception.mvc;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yazuo.intelligent.logger.exception.builder.ResultBuilder;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -10,8 +11,13 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import javax.annotation.Resource;
+
 @RestControllerAdvice
 public class SuccessAdvice implements ResponseBodyAdvice<Object> {
+
+    @Resource
+    ResultBuilder resultBuilder;
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
@@ -19,11 +25,6 @@ public class SuccessAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        JSONObject success = new JSONObject();
-        success.put("code",200);
-        success.put("data",body);
-       ApiOperation apiOperation =  returnType.getMethod().getAnnotation(ApiOperation.class);
-        success.put("message",apiOperation.value()+"成功");
-        return success;
+        return resultBuilder.buildSuccess(body,returnType.getMethod().getAnnotation(ApiOperation.class));
     }
 }
