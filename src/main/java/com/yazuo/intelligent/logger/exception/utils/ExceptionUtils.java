@@ -11,7 +11,7 @@ public final class ExceptionUtils {
      * @param exception
      * @return
      */
-    public static String exceptionToString(Exception exception){
+    public static String exceptionToString(Throwable exception){
         if(exception==null) throw new NullPointerException("exception must be not null");
             StringWriter writer = new StringWriter();
             exception.printStackTrace(new PrintWriter(writer,true));

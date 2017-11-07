@@ -29,7 +29,7 @@ public class RestErrorResultBuilder implements ErrorResultBuilder {
     private ErrorResult createFromException( Exception exception, Consumer<ErrorResult> afterProcess){
         ErrorResult result = new ErrorResult();
         result.setMessage(exception.getMessage());
-        result.setStackInfo(ExceptionUtils.exceptionToString(exception));
+        result.setStackInfo(ExceptionUtils.exceptionToString(exception.getCause()));
         if(afterProcess!=null){
             afterProcess.accept(result);
         }

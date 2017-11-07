@@ -19,8 +19,7 @@ public class ExceptionAdvice  {
     private Tracer tracer;
     @Resource
     private ErrorResultBuilder errorResultBuilder;
-    @Resource
-    private ApplicationEventPublisher eventPublisher;
+
     @ExceptionHandler(BusinessException.class)
     public ErrorResult processRestError(BusinessException exception, HandlerMethod handler){
         return errorResultBuilder.build(exception,tracer);
