@@ -1,8 +1,8 @@
 package com.yazuo.intelligent.logger.exception.builder;
 
-import com.yazuo.intelligent.exception.AbstractException;
-import com.yazuo.intelligent.exception.response.ErrorResult;
-import com.yazuo.intelligent.exception.utils.ExceptionUtils;
+import com.yazuo.intelligent.logger.exception.AbstractException;
+import com.yazuo.intelligent.logger.exception.response.ErrorResult;
+import com.yazuo.intelligent.logger.exception.utils.ExceptionUtils;
 import org.springframework.cloud.sleuth.Tracer;
 
 import java.util.function.Consumer;
