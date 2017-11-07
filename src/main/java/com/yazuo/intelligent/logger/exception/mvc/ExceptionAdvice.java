@@ -1,8 +1,8 @@
 package com.yazuo.intelligent.logger.exception.mvc;
 
-import com.yazuo.intelligent.exception.BusinessException;
-import com.yazuo.intelligent.exception.builder.ErrorResultBuilder;
-import com.yazuo.intelligent.exception.response.ErrorResult;
+import com.yazuo.intelligent.logger.exception.BusinessException;
+import com.yazuo.intelligent.logger.exception.builder.ErrorResultBuilder;
+import com.yazuo.intelligent.logger.exception.response.ErrorResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.context.ApplicationEventPublisher;
@@ -22,7 +22,7 @@ public class ExceptionAdvice  {
     @Resource
     private ApplicationEventPublisher eventPublisher;
     @ExceptionHandler(BusinessException.class)
-    public ErrorResult processRestError(BusinessException exception,HandlerMethod handler){
+    public ErrorResult processRestError(BusinessException exception, HandlerMethod handler){
         return errorResultBuilder.build(exception,tracer);
     }
     @ExceptionHandler(Exception.class)
