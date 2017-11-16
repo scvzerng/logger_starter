@@ -2,6 +2,7 @@ package com.yazuo.intelligent.logger;
 
 import com.alibaba.fastjson.JSON;
 import com.yazuo.intelligent.exception.AbstractException;
+import com.yazuo.intelligent.logger.filter.LoggerParamsFilter;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.Signature;
@@ -10,6 +11,10 @@ public class DefaultErrorLogger extends AbstractLoggerPrinter implements ErrorLo
     private static final int DEFAULT = 500;
     private static final String FORMAT = "耗时-{}毫秒 代码:{} 异常信息:{} 方法:{}[{}] 参数:{}";
     private static final String SUFFIX = "失败";
+
+    public DefaultErrorLogger(LoggerParamsFilter filter) {
+        super(filter);
+    }
 
 
     @Override

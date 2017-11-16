@@ -9,11 +9,7 @@ public  abstract class AbstractLoggerPrinter implements LoggerPrinter {
      */
     protected LoggerParamsFilter filter = new HttpObjectFilter();
 
-    public LoggerParamsFilter getFilter() {
-        return filter;
-    }
-
-    public void setFilter(LoggerParamsFilter filter) {
+    public AbstractLoggerPrinter(LoggerParamsFilter filter) {
         this.filter = filter;
     }
 }
