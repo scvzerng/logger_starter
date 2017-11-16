@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.sleuth.Tracer;
 
 public interface ResultBuilder {
-   ErrorResult buildError(AbstractException exception, Tracer tracer);
+   ErrorResult buildError( ApiOperation apiOperation,AbstractException exception, Tracer tracer);
 
-   ErrorResult buildError(Exception exception, Tracer tracer);
+   ErrorResult buildError( ApiOperation apiOperation,Exception exception, Tracer tracer);
    SuccessResult<Object> buildSuccess(Object obj , ApiOperation apiOperation);
 }

@@ -12,20 +12,14 @@ import java.util.function.Consumer;
 public class RestResultBuilder implements ResultBuilder {
 
     @Override
-    public ErrorResult buildError(AbstractException exception, Tracer tracer) {
-        return createFromException(exception,errorResult -> {
-            errorResult.setTradeId(tracer.getCurrentSpan().traceIdString());
-            errorResult.setCode(exception.getCode());
-        });
+    public ErrorResult buildError( ApiOperation apiOperation,AbstractException exception, Tracer tracer) {
+        return createFromException(tracer,apiOperation,exception);
 
     }
 
     @Override
-    public ErrorResult buildError(Exception exception, Tracer tracer) {
-        return createFromException(exception,errorResult -> {
-            errorResult.setTradeId(tracer.getCurrentSpan().traceIdString());
-            errorResult.setCode(500);
-        });
+    public ErrorResult buildError( ApiOperation apiOperation,Exception exception, Tracer tracer) {
+        return createFromException(tracer,apiOperation,exception);
     }
 
     @Override
@@ -36,13 +30,17 @@ public class RestResultBuilder implements ResultBuilder {
         return successResult;
     }
 
-    private ErrorResult createFromException( Exception exception, Consumer<ErrorResult> afterProcess){
+    private ErrorResult createFromException( Tracer tracer, ApiOperation apiOperation, Exception exception){
         ErrorResult result = new ErrorResult();
-        result.setMessage(exception.getMessage());
-        result.setStackInfo(ExceptionUtils.exceptionToString(exception));
-        if(afterProcess!=null){
-            afterProcess.accept(result);
+        StringBuilder message = new StringBuilder(apiOperation.value()+"失败");
+        if(exception instanceof AbstractException){
+             message.append(":")
+                    .append(exception.getMessage());
+             result.setCode(((AbstractException) exception).getCode());
         }
+        result.setMessage(message.toString());
+        result.setTradeId(tracer.getCurrentSpan().traceIdString());
+        result.setStackInfo(ExceptionUtils.exceptionToString(exception));
         return result;
     }
 }
