@@ -12,6 +12,6 @@ public class DefaultInfoLogger extends AbstractLoggerPrinter implements InfoLogg
 
     @Override
     public void log(long start, Signature signature, ApiOperation api, Object[] args, Object result, Throwable exception) {
-    log.info(FORMAT,System.currentTimeMillis(),DEFAULT,api.notes()+SUFFIX,signature.toString(), JSON.toJSONString(args,filter),JSON.toJSONString(result,filter));
+    log.info(FORMAT,System.currentTimeMillis()-start,DEFAULT,api.value()+SUFFIX,signature.toString(), JSON.toJSONString(args,filter),JSON.toJSONString(result,filter));
     }
 }

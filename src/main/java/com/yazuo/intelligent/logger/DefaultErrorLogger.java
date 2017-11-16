@@ -14,7 +14,7 @@ public class DefaultErrorLogger extends AbstractLoggerPrinter implements ErrorLo
 
     @Override
     public void log(long start, Signature signature, ApiOperation api, Object[] args, Object result, Throwable exception) {
-      log.error(FORMAT,System.currentTimeMillis()-start,getCode(exception),exception,api.notes()+SUFFIX,signature.toString(), JSON.toJSONString(args,filter));
+      log.error(FORMAT,System.currentTimeMillis()-start,getCode(exception),exception,api.value()+SUFFIX,signature.toString(), JSON.toJSONString(args,filter));
     }
 
     private int getCode(Throwable throwable){
