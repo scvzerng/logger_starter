@@ -2,6 +2,7 @@ package com.yazuo.intelligent.logger;
 
 import com.alibaba.fastjson.JSON;
 import com.yazuo.intelligent.exception.AbstractException;
+import com.yazuo.intelligent.exception.utils.ExceptionUtils;
 import com.yazuo.intelligent.logger.filter.LoggerParamsFilter;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ public class DefaultErrorLogger extends AbstractLoggerPrinter implements ErrorLo
 
     @Override
     public void log(long start, Signature signature, ApiOperation api, Object[] args, Object result, Throwable exception) {
-      log.error(FORMAT,System.currentTimeMillis()-start,getCode(exception),exception,api.value()+SUFFIX,signature.toString(), JSON.toJSONString(args,filter));
+      log.error(FORMAT,System.currentTimeMillis()-start,getCode(exception), ExceptionUtils.exceptionToString(exception),api.value()+SUFFIX,signature.toString(), JSON.toJSONString(args,filter));
     }
 
     private int getCode(Throwable throwable){
