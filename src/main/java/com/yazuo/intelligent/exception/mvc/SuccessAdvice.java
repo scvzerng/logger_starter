@@ -1,7 +1,6 @@
-package com.yazuo.intelligent.logger.exception.mvc;
+package com.yazuo.intelligent.exception.mvc;
 
-import com.alibaba.fastjson.JSONObject;
-import com.yazuo.intelligent.logger.exception.builder.ResultBuilder;
+import com.yazuo.intelligent.exception.builder.ResultBuilder;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

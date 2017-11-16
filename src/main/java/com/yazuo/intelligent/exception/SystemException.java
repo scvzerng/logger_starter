@@ -1,4 +1,4 @@
-package com.yazuo.intelligent.logger.exception;
+package com.yazuo.intelligent.exception;
 
 public class SystemException extends AbstractException {
     public SystemException(Throwable e) {

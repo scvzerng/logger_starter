@@ -1,7 +1,7 @@
-package com.yazuo.intelligent.logger.exception.autoconfig;
+package com.yazuo.intelligent.autoconfig;
 
-import com.yazuo.intelligent.logger.exception.builder.RestResultBuilder;
-import com.yazuo.intelligent.logger.exception.builder.ResultBuilder;
+import com.yazuo.intelligent.exception.builder.RestResultBuilder;
+import com.yazuo.intelligent.exception.builder.ResultBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;

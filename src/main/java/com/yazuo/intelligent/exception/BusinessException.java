@@ -1,4 +1,4 @@
-package com.yazuo.intelligent.logger.exception;
+package com.yazuo.intelligent.exception;
 
 public class BusinessException extends AbstractException {
     public BusinessException(int code, String message, Throwable e) {

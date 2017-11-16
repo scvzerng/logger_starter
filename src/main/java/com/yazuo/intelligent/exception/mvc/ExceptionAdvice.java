@@ -1,9 +1,8 @@
-package com.yazuo.intelligent.logger.exception.mvc;
+package com.yazuo.intelligent.exception.mvc;
 
-import com.yazuo.intelligent.logger.exception.BusinessException;
-import com.yazuo.intelligent.logger.exception.builder.ResultBuilder;
-import com.yazuo.intelligent.logger.exception.response.ErrorResult;
-import lombok.extern.slf4j.Slf4j;
+import com.yazuo.intelligent.exception.BusinessException;
+import com.yazuo.intelligent.exception.builder.ResultBuilder;
+import com.yazuo.intelligent.exception.response.ErrorResult;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.yazuo.intelligent.logger.exception.response;
+package com.yazuo.intelligent.exception.response;
 
 import lombok.Data;
 
