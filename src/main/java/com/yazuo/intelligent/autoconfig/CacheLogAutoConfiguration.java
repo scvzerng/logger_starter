@@ -3,11 +3,9 @@ package com.yazuo.intelligent.autoconfig;
 import com.yazuo.intelligent.logger.cache.CacheLogInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.annotation.AnnotationCacheOperationSource;
-import org.springframework.cache.interceptor.CacheInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 
 /**
  * Created with IntelliJ IDEA.

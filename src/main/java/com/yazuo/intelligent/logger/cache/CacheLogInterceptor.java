@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiOperation;
 import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.cache.Cache;
 import org.springframework.cache.interceptor.CacheInterceptor;
 
 import javax.annotation.Resource;
