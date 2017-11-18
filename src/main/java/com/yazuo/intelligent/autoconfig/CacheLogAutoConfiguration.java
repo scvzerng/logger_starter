@@ -7,6 +7,7 @@ import org.springframework.cache.interceptor.CacheInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,8 +23,8 @@ public class CacheLogAutoConfiguration {
     @Bean
     @Primary
     @ConditionalOnMissingBean
-    public CacheInterceptor cacheInterceptor(){
-        CacheInterceptor interceptor = new CacheLogInterceptor();
+    public CacheLogInterceptor cacheInterceptor(){
+        CacheLogInterceptor interceptor = new CacheLogInterceptor();
         interceptor.setCacheOperationSources(new AnnotationCacheOperationSource());
         return interceptor;
     }
