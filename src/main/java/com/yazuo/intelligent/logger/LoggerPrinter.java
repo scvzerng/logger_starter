@@ -14,4 +14,5 @@ public interface LoggerPrinter {
      * @param result 返回值
      */
     void log(long start, Signature signature, ApiOperation api, Object[] args, Object result, Throwable exception);
+    void clear();
 }

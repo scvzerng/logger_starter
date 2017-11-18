@@ -8,8 +8,17 @@ public  abstract class AbstractLoggerPrinter implements LoggerPrinter {
      * 过滤对象序列化时的属性
      */
     protected LoggerParamsFilter filter = new HttpObjectFilter();
+    /**
+     * 用于对缓存日志的去重
+     */
+    public static final ThreadLocal<Boolean> TAG = new ThreadLocal<>();
 
     public AbstractLoggerPrinter(LoggerParamsFilter filter) {
         this.filter = filter;
+    }
+
+    @Override
+    public void clear() {
+        TAG.remove();
     }
 }
