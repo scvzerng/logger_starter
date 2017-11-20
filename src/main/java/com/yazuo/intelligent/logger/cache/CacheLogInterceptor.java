@@ -1,5 +1,6 @@
 package com.yazuo.intelligent.logger.cache;
 
+import com.yazuo.intelligent.logger.ErrorLogger;
 import com.yazuo.intelligent.logger.InfoLogger;
 import io.swagger.annotations.ApiOperation;
 import org.aopalliance.intercept.MethodInvocation;
@@ -27,17 +28,27 @@ import static java.util.stream.Collectors.toList;
 public class CacheLogInterceptor extends CacheInterceptor {
     @Resource
     private InfoLogger infoLogger;
+    @Resource
+    private ErrorLogger errorLogger;
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        long start = System.currentTimeMillis();
-        Object result = super.invoke(invocation);
         Signature signature =new LogMethodSignature(invocation);
-        infoLogger.log(start,signature,invocation.getMethod().getAnnotation(ApiOperation.class),invocation.getArguments(),result,null);
-        return result;
+        ApiOperation apiOperation = invocation.getMethod().getAnnotation(ApiOperation.class);
+
+        long start = System.currentTimeMillis();
+        try{
+            Object result = super.invoke(invocation);
+            infoLogger.log(start,signature,apiOperation,invocation.getArguments(),result,null);
+            return result;
+        }catch (Exception e){
+            errorLogger.log(start,signature,apiOperation,invocation.getArguments(),null,e);
+            throw e;
+        }
+
     }
 
-    private static class LogMethodSignature implements MethodSignature {
+    public static class LogMethodSignature implements MethodSignature {
         private Method method;
         public LogMethodSignature(MethodInvocation invocation) {
             this.method = invocation.getMethod();

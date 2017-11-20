@@ -20,3 +20,14 @@ info   :  `耗时-{}毫秒 代码:{} 方法:{}[{}] 参数:{} 返回值:{}`
 - info级别实现InfoLogger后注入
 - error级别实现ErrorLogger后注入
 - 过滤不需要打印的属性实现LoggerParamsFilter后注入或继承HttpObjectFilter
+
+### @LoggerFilter注解 
+
+> 标注在方法上
+
+- value 过滤指定类型的值
+- keys 过滤指定字段名的值
+```java
+     @LoggerFilter(keys = {"list"},value = {Integer.class,String.class})
+
+```
