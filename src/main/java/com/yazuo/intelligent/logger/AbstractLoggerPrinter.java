@@ -6,9 +6,6 @@ import com.yazuo.intelligent.logger.filter.KeyFilter;
 import com.yazuo.intelligent.logger.filter.LoggerParamsFilter;
 import com.yazuo.intelligent.logger.filter.ValueFilter;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,7 +34,7 @@ public  abstract class AbstractLoggerPrinter implements LoggerPrinter {
     @Override
     public void addFilter(ApiOperation api, LoggerFilter filter) {
             LOG_KEY_FILTERS.put(api,new KeyFilter(Arrays.asList(filter.keys())));
-            LOG_VALUE_FILTERS.put(api,new ValueFilter(Arrays.asList(filter.value())));
+            LOG_VALUE_FILTERS.put(api,new ValueFilter(Arrays.asList(filter.types())));
     }
 
     @Override

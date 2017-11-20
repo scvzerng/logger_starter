@@ -7,5 +7,5 @@ import java.lang.annotation.*;
 @Inherited
 public @interface LoggerFilter {
     String[] keys() default {};
-    Class[] value() default {};
+    Class[] types() default {};
 }
