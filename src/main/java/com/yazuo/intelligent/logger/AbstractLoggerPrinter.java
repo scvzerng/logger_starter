@@ -61,4 +61,9 @@ public  abstract class AbstractLoggerPrinter implements LoggerPrinter {
     protected LoggerFilter getLoggerFilter(MethodSignature methodSignature){
         return methodSignature.getMethod().getAnnotation(LoggerFilter.class);
     }
+
+    @Override
+    public LoggerFilter getLoggerFilter(String cacheName) {
+        return CACHE_FILTERS.get(cacheName);
+    }
 }
