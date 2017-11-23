@@ -7,6 +7,8 @@ import com.yazuo.intelligent.logger.filter.LoggerParamsFilter;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.reflect.MethodSignature;
+
 @Slf4j
 public class DefaultErrorLogger extends AbstractLoggerPrinter implements ErrorLogger {
     private static final int DEFAULT = 500;
@@ -19,8 +21,8 @@ public class DefaultErrorLogger extends AbstractLoggerPrinter implements ErrorLo
 
 
     @Override
-    public void log(long start, Signature signature, ApiOperation api, Object[] args, Object result, Throwable exception) {
-      log.error(FORMAT,System.currentTimeMillis()-start,getCode(exception), ExceptionUtils.exceptionToString(exception),api.value()+SUFFIX,signature.toString(), JSON.toJSONString(args,filter));
+    public void log(long start, MethodSignature signature, Object[] args, Object result, Throwable exception) {
+      log.error(FORMAT,System.currentTimeMillis()-start,getCode(exception), ExceptionUtils.exceptionToString(exception),getApiName(signature)+SUFFIX,signature.toString(), JSON.toJSONString(args,filter));
     }
 
     private int getCode(Throwable throwable){
@@ -29,4 +31,6 @@ public class DefaultErrorLogger extends AbstractLoggerPrinter implements ErrorLo
         }
             return DEFAULT;
     }
+
+
 }

@@ -1,14 +1,18 @@
 package com.yazuo.intelligent.autoconfig;
 
 import com.yazuo.intelligent.logger.LogFilterBeanPostProcessor;
+import com.yazuo.intelligent.logger.LogProperties;
 import com.yazuo.intelligent.logger.cache.CacheLogInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.AnnotationCacheOperationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
+
+import javax.annotation.Resource;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,14 +24,16 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 @Import(LogFilterBeanPostProcessor.class)
+@EnableConfigurationProperties(LogProperties.class)
 public class CacheLogAutoConfiguration {
-
+    @Resource
+    LogProperties logProperties;
     @Bean
     @Primary
     @ConditionalOnMissingBean
     @ConditionalOnProperty(name = "spring.cache.type",havingValue = "redis")
     public CacheLogInterceptor cacheInterceptor(){
-        CacheLogInterceptor interceptor = new CacheLogInterceptor();
+        CacheLogInterceptor interceptor = new CacheLogInterceptor(logProperties);
         interceptor.setCacheOperationSources(new AnnotationCacheOperationSource());
         return interceptor;
     }

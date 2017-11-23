@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,10 +26,10 @@ public class LogAspect {
 
         try {
             Object result = point.proceed();
-            infoLogger.log(start,point.getSignature(),apiOperation,point.getArgs(),result,null);
+            infoLogger.log(start,(MethodSignature) point.getSignature(),point.getArgs(),result,null);
            return result;
         } catch (Throwable throwable) {
-            errorLogger.log(start,point.getSignature(),apiOperation,point.getArgs(),null,throwable);
+            errorLogger.log(start,(MethodSignature) point.getSignature(),point.getArgs(),null,throwable);
             throw throwable;
         }
 

@@ -1,17 +1,25 @@
 package com.yazuo.intelligent.logger.cache;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.PropertyFilter;
 import com.yazuo.intelligent.logger.ErrorLogger;
 import com.yazuo.intelligent.logger.InfoLogger;
+import com.yazuo.intelligent.logger.LogProperties;
+import com.yazuo.intelligent.logger.LoggerFilter;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.Cache;
 import org.springframework.cache.interceptor.CacheInterceptor;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toList;
 
@@ -24,96 +32,36 @@ import static java.util.stream.Collectors.toList;
  * Package:com.yazuo.intelligent.cache
  * To change this template use File | Settings | File Templates.
  */
-
+@Slf4j
 public class CacheLogInterceptor extends CacheInterceptor {
+    private static final String LOG_TEMPLATE = "hit cache name:{} key:{} value:{}";
+    private final LogProperties logProperties;
     @Resource
     private InfoLogger infoLogger;
-    @Resource
-    private ErrorLogger errorLogger;
+    public CacheLogInterceptor(final LogProperties logProperties) {
+        this.logProperties = logProperties;
+    }
 
     @Override
-    public Object invoke(MethodInvocation invocation) throws Throwable {
-        Signature signature =new LogMethodSignature(invocation);
-        ApiOperation apiOperation = invocation.getMethod().getAnnotation(ApiOperation.class);
-
-        long start = System.currentTimeMillis();
-        try{
-            Object result = super.invoke(invocation);
-            infoLogger.log(start,signature,apiOperation,invocation.getArguments(),result,null);
-            return result;
-        }catch (Exception e){
-            errorLogger.log(start,signature,apiOperation,invocation.getArguments(),null,e);
-            throw e;
+    protected Cache.ValueWrapper doGet(Cache cache, Object key) {
+        Cache.ValueWrapper valueWrapper = super.doGet(cache, key);
+        if(needLog(valueWrapper)){
+            LogProperties.Enable enable = logProperties.getEnable();
+            infoLogger.getLoggerFilter(cache.getName());
+            log.info(LOG_TEMPLATE,enable.isName()?cache.getName():"",enable.isKey()?key.toString():"", enable.isValue()?JSON.toJSONString(valueWrapper.get(),getFilters(cache)):"");
         }
 
+        return valueWrapper;
     }
 
-    public static class LogMethodSignature implements MethodSignature {
-        private Method method;
-        public LogMethodSignature(MethodInvocation invocation) {
-            this.method = invocation.getMethod();
-        }
-
-        @Override
-        public Class getReturnType() {
-            return method.getReturnType();
-        }
-
-        @Override
-        public Method getMethod() {
-            return method;
-        }
-
-        @Override
-        public Class[] getParameterTypes() {
-            return method.getParameterTypes();
-        }
-
-        @Override
-        public String[] getParameterNames() {
-            String[] names = new String[method.getParameters().length];
-            return Arrays.stream(method.getParameters()).map(Parameter::toString).collect(toList()).toArray(names);
-        }
-
-        @Override
-        public Class[] getExceptionTypes() {
-            return method.getExceptionTypes();
-        }
-
-        @Override
-        public String toShortString() {
-            return getReturnType().getSimpleName()+" "+getDeclaringType().getName()+"."+method.getName()+Arrays.toString(Arrays.stream(getParameterTypes()).map(Class::getSimpleName).collect(toList()).toArray());
-        }
-
-        @Override
-        public String toLongString() {
-            return method.toString();
-        }
-
-        @Override
-        public String getName() {
-            return this.toLongString();
-        }
-
-        @Override
-        public int getModifiers() {
-            return method.getModifiers();
-        }
-
-        @Override
-        public Class getDeclaringType() {
-            return method.getDeclaringClass();
-        }
-
-        @Override
-        public String getDeclaringTypeName() {
-            return this.getDeclaringType().getName();
-        }
-
-        @Override
-        public String toString() {
-            return "hit cache == "+this.toShortString();
-        }
+    private boolean needLog(Cache.ValueWrapper valueWrapper){
+        return logProperties.getEnable()!=null&&valueWrapper!=null&&valueWrapper.get()!=null;
     }
+
+    private PropertyFilter[] getFilters(Cache cache){
+        LoggerFilter filter = infoLogger.getLoggerFilter(cache.getName());
+        return new PropertyFilter[]{infoLogger.getKeyFilter(filter),infoLogger.getValueFilter(filter)};
+    }
+
 
 }

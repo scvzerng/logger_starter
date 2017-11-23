@@ -19,8 +19,7 @@ public class SuccessAdvice implements ResponseBodyAdvice<Object> {
 
     @Resource
     ResultBuilder resultBuilder;
-    @Resource
-    InfoLogger infoLogger;
+
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return returnType.getMethod().getAnnotation(ApiOperation.class)!=null;
@@ -28,7 +27,6 @@ public class SuccessAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        infoLogger.clear();
         return resultBuilder.buildSuccess(body,returnType.getMethod().getAnnotation(ApiOperation.class));
     }
 }

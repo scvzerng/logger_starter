@@ -2,12 +2,9 @@ package com.yazuo.intelligent.logger;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.PropertyFilter;
-import com.yazuo.intelligent.logger.filter.KeyFilter;
 import com.yazuo.intelligent.logger.filter.LoggerParamsFilter;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.lang.Signature;
-
+import org.aspectj.lang.reflect.MethodSignature;
 
 
 @Slf4j
@@ -21,10 +18,16 @@ public class DefaultInfoLogger extends AbstractLoggerPrinter implements InfoLogg
     }
 
     @Override
-    public void log(long start, Signature signature, ApiOperation api, Object[] args, Object result, Throwable exception) {
-        if(Boolean.TRUE==TAG.get()) return;
-        TAG.set(Boolean.TRUE);
-        log.info(FORMAT,System.currentTimeMillis()-start,DEFAULT,api.value()+SUFFIX,signature, JSON.toJSONString(args,new PropertyFilter[]{filter,this.getKeyFilter(api),this.getValueFilter(api)}),JSON.toJSONString(result,new PropertyFilter[]{filter,this.getKeyFilter(api),this.getValueFilter(api)}));
+    public void log(long start, MethodSignature signature, Object[] args, Object result, Throwable exception) {
+        PropertyFilter[] filters = getFilters(signature);
+        log.info(FORMAT,System.currentTimeMillis()-start,DEFAULT,getApiName(signature)+SUFFIX,signature, JSON.toJSONString(args,filters),JSON.toJSONString(result,filters));
+    }
+
+    private PropertyFilter[] getFilters(MethodSignature signature){
+        LoggerFilter loggerFilter = getLoggerFilter(signature);
+        PropertyFilter keyFilter = this.getKeyFilter(loggerFilter);
+        PropertyFilter valueFilter = this.getValueFilter(loggerFilter);
+        return new PropertyFilter[]{filter,keyFilter,valueFilter};
     }
 
 }
