@@ -1,8 +1,8 @@
 package com.yazuo.intelligent.exception.mvc;
 
-import com.yazuo.intelligent.exception.BusinessException;
+import com.yazuo.intelligent.common.exception.BusinessException;
+import com.yazuo.intelligent.common.response.GenericResponse;
 import com.yazuo.intelligent.exception.builder.ResultBuilder;
-import com.yazuo.intelligent.exception.response.GenericResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.web.bind.annotation.ExceptionHandler;

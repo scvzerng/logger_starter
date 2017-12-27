@@ -1,7 +1,7 @@
 package com.yazuo.intelligent.exception.builder;
 
-import com.yazuo.intelligent.exception.AbstractException;
-import com.yazuo.intelligent.exception.response.GenericResponse;
+import com.yazuo.intelligent.common.exception.AbstractException;
+import com.yazuo.intelligent.common.response.GenericResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.sleuth.Tracer;
 
