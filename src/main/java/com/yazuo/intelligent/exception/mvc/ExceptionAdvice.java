@@ -2,7 +2,7 @@ package com.yazuo.intelligent.exception.mvc;
 
 import com.yazuo.intelligent.exception.BusinessException;
 import com.yazuo.intelligent.exception.builder.ResultBuilder;
-import com.yazuo.intelligent.exception.response.ErrorResult;
+import com.yazuo.intelligent.exception.response.GenericResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,11 +20,11 @@ public class ExceptionAdvice  {
     private ResultBuilder resultBuilder;
 
     @ExceptionHandler(BusinessException.class)
-    public ErrorResult processRestError(BusinessException exception, HandlerMethod method){
+    public GenericResponse<?> processRestError(BusinessException exception, HandlerMethod method){
         return resultBuilder.buildError(method.getMethodAnnotation(ApiOperation.class),exception,tracer);
     }
     @ExceptionHandler(Exception.class)
-    public ErrorResult processSysError(Exception e,HandlerMethod method){
+    public GenericResponse<?> processSysError(Exception e,HandlerMethod method){
         return resultBuilder.buildError(method.getMethodAnnotation(ApiOperation.class),e,tracer);
     }
 

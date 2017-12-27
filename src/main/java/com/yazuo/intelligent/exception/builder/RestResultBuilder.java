@@ -1,37 +1,44 @@
 package com.yazuo.intelligent.exception.builder;
 
 import com.yazuo.intelligent.exception.AbstractException;
-import com.yazuo.intelligent.exception.response.ErrorResult;
-import com.yazuo.intelligent.exception.response.SuccessResult;
+import com.yazuo.intelligent.exception.response.GenericResponse;
 import com.yazuo.intelligent.exception.utils.ExceptionUtils;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.sleuth.Tracer;
-
-import java.util.function.Consumer;
+import org.springframework.http.HttpStatus;
 
 public class RestResultBuilder implements ResultBuilder {
 
     @Override
-    public ErrorResult buildError( ApiOperation apiOperation,AbstractException exception, Tracer tracer) {
+    public GenericResponse<?> buildError(ApiOperation apiOperation, AbstractException exception, Tracer tracer) {
         return createFromException(tracer,apiOperation,exception);
 
     }
 
     @Override
-    public ErrorResult buildError( ApiOperation apiOperation,Exception exception, Tracer tracer) {
+    public GenericResponse<?> buildError( ApiOperation apiOperation,Exception exception, Tracer tracer) {
         return createFromException(tracer,apiOperation,exception);
     }
 
     @Override
-    public SuccessResult<Object> buildSuccess(Object obj, ApiOperation apiOperation) {
-        SuccessResult<Object> successResult = new SuccessResult<>();
-        successResult.setData(obj);
-        successResult.setMessage(apiOperation.value()+"成功");
+    public GenericResponse<?> buildSuccess(Object obj, ApiOperation apiOperation) {
+        GenericResponse<Object> successResult=obj instanceof GenericResponse?(GenericResponse<Object>) obj:new GenericResponse<>();
+        if(successResult.getCode()<=0){
+            successResult.setCode(HttpStatus.OK.value());
+        }
+        if(successResult.getMessage()==null){
+            successResult.setMessage(apiOperation.value()+"成功");
+        }
+        if(successResult.getData()==null){
+            if(!(obj instanceof GenericResponse)){
+                successResult.setData(obj);
+            }
+        }
         return successResult;
     }
 
-    private ErrorResult createFromException( Tracer tracer, ApiOperation apiOperation, Exception exception){
-        ErrorResult result = new ErrorResult();
+    private GenericResponse<?> createFromException( Tracer tracer, ApiOperation apiOperation, Exception exception){
+        GenericResponse<Object> result = new GenericResponse<>();
         StringBuilder message = new StringBuilder(apiOperation.value()+"失败");
         if(exception instanceof AbstractException){
              message.append(":")

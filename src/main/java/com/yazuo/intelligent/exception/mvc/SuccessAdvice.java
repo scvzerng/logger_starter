@@ -1,7 +1,6 @@
 package com.yazuo.intelligent.exception.mvc;
 
 import com.yazuo.intelligent.exception.builder.ResultBuilder;
-import com.yazuo.intelligent.logger.InfoLogger;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -27,6 +26,7 @@ public class SuccessAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+
         return resultBuilder.buildSuccess(body,returnType.getMethod().getAnnotation(ApiOperation.class));
     }
 }
