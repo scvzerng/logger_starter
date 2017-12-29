@@ -32,6 +32,7 @@ info   :  `耗时-{}毫秒 代码:{} 方法:{}[{}] 参数:{} 返回值:{}`
 
 ```
 ### 注解个性化
+
 > 日志切面注解和过滤日志注解支持个性化只要属性名一致不缺失
 
 ### example
@@ -40,6 +41,7 @@ info   :  `耗时-{}毫秒 代码:{} 方法:{}[{}] 参数:{} 返回值:{}`
 @LoggerFilter(keys = {"list"},value = {Integer.class,String.class})
 ```
 可被
+
 ```java
 @LogTag(keys = {"list"},value = {Integer.class,String.class})
 ```
