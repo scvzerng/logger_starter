@@ -27,9 +27,9 @@ info   :  `耗时-{}毫秒 代码:{} 方法:{}[{}] 参数:{} 返回值:{}`
 
 - value 过滤指定类型的值
 - keys 过滤指定字段名的值
+
 ```java
      @LoggerFilter(keys = {"list"},value = {Integer.class,String.class})
-
 ```
 
 ### 注解个性化
