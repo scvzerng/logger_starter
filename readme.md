@@ -50,7 +50,14 @@ info   :  `耗时-{}毫秒 代码:{} 方法:{}[{}] 参数:{} 返回值:{}`
 
 ```yaml
 log:
-  log-annotation: ApiOperation.class
-  filter-annotation: LoggerFilter.class
+  log-annotation: ApiOperation.class   #日志注解
+  filter-annotation: LoggerFilter.class  #过滤注解
+spring:
+   cache: 
+     log:
+       enable:
+         name: true  #打印缓存名称 
+         key: true  #打印缓存Key
+         value: true #打印缓存值
 ```
 
