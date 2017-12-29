@@ -1,7 +1,7 @@
 package com.yazuo.intelligent.autoconfig;
 
 import com.yazuo.intelligent.logger.LogFilterBeanPostProcessor;
-import com.yazuo.intelligent.logger.LogProperties;
+import com.yazuo.intelligent.logger.CacheLogProperties;
 import com.yazuo.intelligent.logger.cache.CacheLogInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -24,10 +24,10 @@ import javax.annotation.Resource;
  */
 @Configuration
 @Import(LogFilterBeanPostProcessor.class)
-@EnableConfigurationProperties(LogProperties.class)
+@EnableConfigurationProperties(CacheLogProperties.class)
 public class CacheLogAutoConfiguration {
     @Resource
-    LogProperties logProperties;
+    CacheLogProperties logProperties;
     @Bean
     @Primary
     @ConditionalOnMissingBean

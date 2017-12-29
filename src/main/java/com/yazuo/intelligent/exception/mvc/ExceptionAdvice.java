@@ -74,6 +74,7 @@ public class ExceptionAdvice  {
                             new GenericResponse.FieldError(
                                     constraintViolation.getPropertyPath().toString(),
                                     constraintViolation.getMessage(),
+
                                     constraintViolation.getInvalidValue()
                             ))
                     .collect(toList()));

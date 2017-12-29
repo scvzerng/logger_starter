@@ -2,26 +2,15 @@ package com.yazuo.intelligent.logger.cache;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.PropertyFilter;
-import com.yazuo.intelligent.logger.ErrorLogger;
 import com.yazuo.intelligent.logger.InfoLogger;
-import com.yazuo.intelligent.logger.LogProperties;
+import com.yazuo.intelligent.logger.CacheLogProperties;
 import com.yazuo.intelligent.logger.LoggerFilter;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.aopalliance.intercept.MethodInvocation;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.Cache;
 import org.springframework.cache.interceptor.CacheInterceptor;
 
 import javax.annotation.Resource;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.Arrays;
-import java.util.function.Supplier;
-
-import static java.util.stream.Collectors.toList;
+import java.lang.annotation.Annotation;
 
 /**
  * 缓存命中日志拦截器
@@ -35,10 +24,10 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class CacheLogInterceptor extends CacheInterceptor {
     private static final String LOG_TEMPLATE = "hit cache name:{} key:{} value:{}";
-    private final LogProperties logProperties;
+    private final CacheLogProperties logProperties;
     @Resource
     private InfoLogger infoLogger;
-    public CacheLogInterceptor(final LogProperties logProperties) {
+    public CacheLogInterceptor(final CacheLogProperties logProperties) {
         this.logProperties = logProperties;
     }
 
@@ -46,7 +35,7 @@ public class CacheLogInterceptor extends CacheInterceptor {
     protected Cache.ValueWrapper doGet(Cache cache, Object key) {
         Cache.ValueWrapper valueWrapper = super.doGet(cache, key);
         if(needLog(valueWrapper)){
-            LogProperties.Enable enable = logProperties.getEnable();
+            CacheLogProperties.Enable enable = logProperties.getEnable();
             infoLogger.getLoggerFilter(cache.getName());
             log.info(LOG_TEMPLATE,enable.isName()?cache.getName():"",enable.isKey()?key.toString():"", enable.isValue()?JSON.toJSONString(valueWrapper.get(),getFilters(cache)):"");
         }
@@ -59,7 +48,7 @@ public class CacheLogInterceptor extends CacheInterceptor {
     }
 
     private PropertyFilter[] getFilters(Cache cache){
-        LoggerFilter filter = infoLogger.getLoggerFilter(cache.getName());
+        Annotation filter = infoLogger.getLoggerFilter(cache.getName());
         return new PropertyFilter[]{infoLogger.getKeyFilter(filter),infoLogger.getValueFilter(filter)};
     }
 

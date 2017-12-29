@@ -6,6 +6,8 @@ import com.yazuo.intelligent.logger.filter.LoggerParamsFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.reflect.MethodSignature;
 
+import java.lang.annotation.Annotation;
+
 
 @Slf4j
 public class DefaultInfoLogger extends AbstractLoggerPrinter implements InfoLogger {
@@ -24,7 +26,7 @@ public class DefaultInfoLogger extends AbstractLoggerPrinter implements InfoLogg
     }
 
     private PropertyFilter[] getFilters(MethodSignature signature){
-        LoggerFilter loggerFilter = getLoggerFilter(signature);
+        Annotation loggerFilter = getLoggerFilter(signature);
         PropertyFilter keyFilter = this.getKeyFilter(loggerFilter);
         PropertyFilter valueFilter = this.getValueFilter(loggerFilter);
         return new PropertyFilter[]{filter,keyFilter,valueFilter};

@@ -40,6 +40,7 @@ public class RestResultBuilder implements ResultBuilder {
 
     private GenericResponse<?> createFromException( Tracer tracer, ApiOperation apiOperation, Exception exception){
         GenericResponse<Object> result = new GenericResponse<>();
+        result.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         StringBuilder message = new StringBuilder(apiOperation.value()+"失败");
         if(exception instanceof AbstractException){
              message.append(":")
@@ -51,4 +52,7 @@ public class RestResultBuilder implements ResultBuilder {
         result.setStackInfo(ExceptionUtils.exceptionToString(exception));
         return result;
     }
+
+
+
 }

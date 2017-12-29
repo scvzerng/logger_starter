@@ -23,26 +23,26 @@ public interface LoggerPrinter {
      * 添加日志打印过滤器
      * @param filter 过滤注解
      */
-    void addFilter(LoggerFilter filter, Annotation cache);
+    void addFilter(Annotation filter, Annotation cache);
 
     /**
      *获取该api的值过滤器 通过类型过滤
      * @return
      */
-    PropertyFilter getValueFilter(LoggerFilter filter);
+    PropertyFilter getValueFilter(Annotation filter);
 
     /**
      * 获取该api的key过滤器 通过字段名过滤
      * @return
      */
-    PropertyFilter getKeyFilter(LoggerFilter filter);
+    PropertyFilter getKeyFilter(Annotation filter);
 
     /**
      * 根据缓存名称获取日志过滤注解
      * @param cacheName
      * @return
      */
-    LoggerFilter getLoggerFilter(String cacheName);
+    Annotation getLoggerFilter(String cacheName);
 
 
 }
