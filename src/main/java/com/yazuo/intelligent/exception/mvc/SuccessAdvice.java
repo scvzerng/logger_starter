@@ -1,5 +1,6 @@
 package com.yazuo.intelligent.exception.mvc;
 
+import com.yazuo.intelligent.common.response.GenericResponse;
 import com.yazuo.intelligent.exception.builder.ResultBuilder;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.MethodParameter;
@@ -26,7 +27,7 @@ public class SuccessAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-
+        if(body instanceof GenericResponse) return body;
         return resultBuilder.buildSuccess(body,returnType.getMethod().getAnnotation(ApiOperation.class));
     }
 }
