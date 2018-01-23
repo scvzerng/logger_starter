@@ -3,7 +3,7 @@ logger starter
 ### 使用
 
                <dependency>
-                    <groupId>com.yazuo.intelligent</groupId>
+                    <groupId>com.zero.scvzerng</groupId>
                     <artifactId>logger-starter</artifactId>
                     <version>${version}</version>
                 </dependency>

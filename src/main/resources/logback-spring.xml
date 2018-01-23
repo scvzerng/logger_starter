@@ -3,7 +3,7 @@
     <include resource="com/yazuo/intelligent/logger/yazuo-logging-base.xml"/>
 
     <!-- 关联appender到项目 -->
-    <logger name="com.yazuo" level="INFO" additivity="false">
+    <logger name="com" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE" />
     </logger>

@@ -8,7 +8,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.6.RELEASE</version>
     </parent>
-    <groupId>com.yazuo.intelligent</groupId>
+    <groupId>com.zero.scvzerng</groupId>
     <artifactId>logger-starter</artifactId>
     <version>1.1.2-SNAPSHOT</version>
 
@@ -49,18 +49,6 @@
             <artifactId>common</artifactId>
         </dependency>
     </dependencies>
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Internal Releases</name>
-            <url>http://nexus.yazuosoft.com/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>Snapshots</id>
-            <name>Internal Snapshots</name>
-            <url>http://nexus.yazuosoft.com/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -84,23 +72,6 @@
             <id>aliyun</id>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
         </repository>
-        <repository>
-            <id>nexus</id>
-            <url>http://nexus.yazuosoft.com/nexus/content/groups/public-all/</url>
-        </repository>
-        <repository>
-            <id>releases</id>
-            <url>http://nexus.yazuosoft.com/nexus/content/repositories/releases</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-
-        <repository>
-            <id>Snapshots</id>
-            <url>http://nexus.yazuosoft.com/nexus/content/repositories/snapshots</url>
-        </repository>
-
     </repositories>
     <build>
         <plugins>
