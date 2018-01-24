@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.zero.scvzerng.autoconfig.ExceptionAutoConfiguration,\
   com.zero.scvzerng.autoconfig.LoggerAutoConfiguration,\
-  com.yazuo.intelligent.autoconfig.CacheLogAutoConfiguration
+  com.zero.scvzerng.autoconfig.CacheLogAutoConfiguration

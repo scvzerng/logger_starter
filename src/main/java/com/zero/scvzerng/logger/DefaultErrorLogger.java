@@ -1,8 +1,8 @@
 package com.zero.scvzerng.logger;
 
 import com.alibaba.fastjson.JSON;
-import com.yazuo.intelligent.common.exception.AbstractException;
-import com.yazuo.intelligent.common.exception.utils.ExceptionUtils;
+import com.zero.scvzerng.common.exception.AbstractException;
+import com.zero.scvzerng.common.exception.utils.ExceptionUtils;
 import com.zero.scvzerng.logger.filter.LoggerParamsFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.reflect.MethodSignature;

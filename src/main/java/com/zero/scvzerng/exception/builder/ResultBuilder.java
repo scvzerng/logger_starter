@@ -1,7 +1,7 @@
 package com.zero.scvzerng.exception.builder;
 
-import com.yazuo.intelligent.common.exception.AbstractException;
-import com.yazuo.intelligent.common.response.GenericResponse;
+import com.zero.scvzerng.common.exception.AbstractException;
+import com.zero.scvzerng.common.response.GenericResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.sleuth.Tracer;
 

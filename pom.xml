@@ -45,7 +45,7 @@
             <artifactId>fastjson</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.yazuo.intelligent</groupId>
+            <groupId>com.zero.scvzerng</groupId>
             <artifactId>common</artifactId>
         </dependency>
     </dependencies>
@@ -59,9 +59,9 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.yazuo.intelligent</groupId>
+                <groupId>com.zero.scvzerng</groupId>
                 <artifactId>dependencies</artifactId>
-                <version>CRM.S0</version>
+                <version>SCVZERNG.S0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

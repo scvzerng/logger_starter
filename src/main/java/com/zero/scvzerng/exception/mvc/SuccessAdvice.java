@@ -1,6 +1,6 @@
 package com.zero.scvzerng.exception.mvc;
 
-import com.yazuo.intelligent.common.response.GenericResponse;
+import com.zero.scvzerng.common.response.GenericResponse;
 import com.zero.scvzerng.exception.builder.ResultBuilder;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.MethodParameter;
