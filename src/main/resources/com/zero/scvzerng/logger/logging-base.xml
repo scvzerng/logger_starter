@@ -8,5 +8,5 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
-    <include resource="com/yazuo/intelligent/logger/file-appender.xml"/>
+    <include resource="com/zero/scvzerng/logger/file-appender.xml"/>
 </included>
