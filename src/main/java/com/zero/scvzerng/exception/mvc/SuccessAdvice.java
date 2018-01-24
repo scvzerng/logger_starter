@@ -1,7 +1,7 @@
-package com.yazuo.intelligent.exception.mvc;
+package com.zero.scvzerng.exception.mvc;
 
 import com.yazuo.intelligent.common.response.GenericResponse;
-import com.yazuo.intelligent.exception.builder.ResultBuilder;
+import com.zero.scvzerng.exception.builder.ResultBuilder;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
